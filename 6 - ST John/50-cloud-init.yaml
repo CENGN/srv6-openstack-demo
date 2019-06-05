@@ -1,0 +1,33 @@
+# /etc/netplan/50-cloud-init.yaml
+network:
+    version: 2
+    ethernets:
+        ens3:
+            dhcp4: true
+            match:
+                macaddress: fa:16:3e:a8:9e:30
+            set-name: ens3
+        ens6:
+            dhcp6: no
+            addresses:
+             - 2046::6/64
+            routes:
+              - to: 2001::/64
+                via: 2046::4
+        ens7:
+            dhcp6: no
+            addresses:
+             - 2056::6/64
+        ens8:
+            dhcp6: no
+            addresses:
+             - 2067::6/64
+        ens9:
+            dhcp6: no
+            addresses:
+             - 2068::6/64
+            routes:
+              - to: 2008::/64
+                via: 2068::8
+
+

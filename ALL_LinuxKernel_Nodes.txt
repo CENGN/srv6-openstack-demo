@@ -1,0 +1,19 @@
+# Install Quagga
+sudo apt-get install quagga
+sudo cp /usr/share/doc/quagga-core/examples/isisd.conf.sample /etc/quagga/isisd.conf
+sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
+sudo chown quagga:quagga /etc/quagga/*
+
+#Put the following into /etc/sysctl.conf on the SRv6 nodes:
+
+###
+#Following is for SRv6
+net.ipv6.conf.all.seg6_enabled=1
+net.ipv6.conf.all.seg6_require_hmac=0
+#Allow ipv6 and ipv4 forwarding
+net.ipv6.conf.all.forwarding=1
+net.ipv4.conf.all.forwarding=1
+###
+ 
+#Reload the values
+sudo sysctl -p

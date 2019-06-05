@@ -1,0 +1,38 @@
+#Install dependencies of DPDK
+sudo apt-get install build-essential libnuma-dev libelf-dev make curl gnupg apt-transport-https
+
+#Install DPDK
+git clone git://dpdk.org/dpdk
+mkdir DPDK
+cd dpdk
+make install DESTDIR=/home/ubuntu/DPDK T=x86_64-native-linux-gcc
+./usertools/dpdk-setup.sh
+option 42
+
+#Install VPP
+sudo apt-get update
+curl -L https://packagecloud.io/fdio/master/gpgkey | sudo apt-key add -
+ 
+#Modify /etc/apt/sources.list.d/fdio_master.list
+deb https://packagecloud.io/fdio/master/ubuntu/ bionic main
+deb-src https://packagecloud.io/fdio/master/ubuntu/ bionic main
+ 
+sudo apt-get update
+sudo apt-get install vpp
+sudo apt-get install vpp vpp-plugin-core vpp-plugin-dpdk vpp-dbg vpp-dev vpp-ext-deps vpp-api-python vpp-api-java
+
+#Add interfaces into VPP
+#Make sure interfaces are shutdown
+sudo ifconfig [interface] down
+#Determine interface
+sudo lshw -class network -businfo
+ 
+ 
+#Modify /etc/vpp/startup.conf
+dpdk {
+  dev [device pci address here]
+}
+ 
+ 
+#Restart the service
+sudo systemctl restart vpp

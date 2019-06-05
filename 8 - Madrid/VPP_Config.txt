@@ -1,0 +1,38 @@
+sudo vppctl
+set interface ip address GigabitEthernet0/6/0 2058::8/64
+set interface ip address GigabitEthernet0/7/0 2068::8/64
+set interface ip address GigabitEthernet0/8/0 2078::8/64
+set interface ip address GigabitEthernet0/9/0 B::8/64
+set interface ip address GigabitEthernet0/a/0 192.168.8.8/24
+set interface state GigabitEthernet0/6/0 up
+set interface state GigabitEthernet0/7/0 up
+set interface state GigabitEthernet0/8/0 up
+set interface state GigabitEthernet0/9/0 up
+set interface state GigabitEthernet0/a/0 up
+ 
+#Specify source address for encapsulation
+set sr encaps source addr 2068::1
+ 
+ 
+ip route add 2005::1/64 via 2058::5
+ip route add 2006::/64 via 2068::6
+ip route add 2007::/64 via 2078::7
+  
+sr localsid address 2008::1 behavior end
+sr localsid address 2008::2 behavior end.dt6 1
+sr localsid address 2008::3 behavior end.dt4 1
+  
+#create Red policy
+sr policy add bsid 2008::4 next 2007::1 next 2006::1 next 2001::2 encap
+  
+#create Green policy
+sr policy add bsid 2008::5 next 2006::1 next 2005::1 next 2001::3 encap
+ 
+#create Blue policy
+sr policy add bsid 2008::6 next 2005::1 next 2003::1 next 2001::2 encap
+  
+  
+#Steer traffic to policy
+sr steer l3 A::A/128 via bsid 2008::4
+sr steer l3 192.168.1.0/24 via bsid 2008::5
+sr steer l3 A::B/128 via bsid 2008::6

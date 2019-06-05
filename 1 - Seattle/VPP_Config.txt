@@ -1,0 +1,41 @@
+sudo vppctl
+set interface ip address GigabitEthernet0/6/0 a::1/64
+set interface ip address GigabitEthernet0/7/0 192.168.1.1/24
+set interface ip address GigabitEthernet0/8/0 2012::1/64
+set interface ip address GigabitEthernet0/9/0 2013::1/64
+set interface ip address GigabitEthernet0/a/0 2015::1/64
+set interface state GigabitEthernet0/6/0 up
+set interface state GigabitEthernet0/7/0 up
+set interface state GigabitEthernet0/8/0 up
+set interface state GigabitEthernet0/9/0 up
+set interface state GigabitEthernet0/a/0 up
+  
+#Specify source address for encapsulation
+set sr encaps source addr 2012::1
+ 
+ip route add 2005::/64 via 2015::5
+ip route add 2003::/64 via 2013::3
+ip route add 2006::/64 via 2012::2
+ 
+sr localsid address 2001::1 behavior end
+sr localsid address 2001::2 behavior end.dt6 1
+sr localsid address 2001::3 behavior end.dt4 1
+  
+#create Red policy
+sr policy add bsid 2001::4 next 2006::1 next 2007::1 next 2008::2 encap
+  
+#create Green policy
+sr policy add bsid 2001::5 next 2005::1 next 2006::1 next 2008::3 encap
+ 
+#create Blue policy
+sr policy add bsid 2001::6 next 2003::1 next 2005::1 next 2008::2 encap
+ 
+#Load Balancing policy (For tell not show)
+sr policy add bsid 2001::7 next 2006::1 next 2007::1 next 2008::2 encap weight 5
+sr policy mod bsid 2001::7 add sl next 2005::1 next 2006::1 next 2008::3 encap weight 5
+sr policy mod bsid 2001::7 add sl next 2003::1 next 2005::1 next 2008::2 encap weight 5
+ 
+#Steer traffic to policy
+sr steer l3 B::A/128 via bsid 2001::4
+sr steer l3 192.168.8.0/24 via bsid 2001::5
+sr steer l3 B::b/128 via bsid 2001::6

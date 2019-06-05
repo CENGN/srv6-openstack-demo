@@ -1,0 +1,830 @@
+heat_template_version: 2016-10-14
+
+
+description: Template for SRv6 environment with VPP  
+resources:
+    #############################Networks##########################
+    Network_A:
+        type: OS::Neutron::Net
+        description: Between Host_A and Seattle
+        properties:
+            name: Network_A
+    Network_12:
+        type: OS::Neutron::Net
+        description: Between Seattle and Edmonton
+        properties:
+            name: Network_12
+    Network_13:
+        type: OS::Neutron::Net
+        description: Between Seattle and San Jose
+        properties:
+            name: Network_13
+    Network_15:
+        type: OS::Neutron::Net
+        description: Between Seattle and New York
+        properties:
+            name: Network_15
+    Network_24:
+        type: OS::Neutron::Net
+        description: Between Edmonton and Toronto
+        properties:
+            name: Network_24
+    Network_35:
+        type: OS::Neutron::Net
+        description: Between San Jose and New York
+        properties:
+            name: Network_35
+    Network_46:
+        type: OS::Neutron::Net
+        description: Between Toronto and St John
+        properties:
+            name: Network_46
+    Network_56:
+        type: OS::Neutron::Net
+        description: Between New York and St John
+        properties:
+            name: Network_56
+    Network_58:
+        type: OS::Neutron::Net
+        description: Between New York and Madrid
+        properties:
+            name: Network_58
+    Network_67:
+        type: OS::Neutron::Net
+        description: Between St John and London
+        properties:
+            name: Network_67
+    Network_68:
+        type: OS::Neutron::Net
+        description: Between St John and Madrid
+        properties:
+            name: Network_68
+    Network_78:
+        type: OS::Neutron::Net
+        description: Between London and Madrid
+        properties:
+            name: Network_78
+    Network_B:
+        type: OS::Neutron::Net
+        description: Between Madrid and Host_B
+        properties:
+            name: Network_B
+
+    
+    #############################Subnets##########################
+    Subnet_A_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_A_IPv6
+            network_id: {get_resource: Network_A }
+            ip_version: 6
+            cidr: A::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_A_IPv4:
+        type: OS::Neutron::Subnet
+        description: IPv4
+        properties:
+            name: Subnet_A_IPv4
+            network_id: {get_resource: Network_A }
+            ip_version: 4
+            cidr: 192.168.1.0/24
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_12_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_12_IPv6
+            network_id: {get_resource: Network_12 }
+            ip_version: 6
+            cidr: 2012::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_13_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_13_IPv6
+            network_id: {get_resource: Network_13 }
+            ip_version: 6
+            cidr: 2013::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_15_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_15_IPv6
+            network_id: {get_resource: Network_15 }
+            ip_version: 6
+            cidr: 2015::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_24_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_24_IPv6
+            network_id: {get_resource: Network_24 }
+            ip_version: 6
+            cidr: 2024::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_35_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_35_IPv6
+            network_id: {get_resource: Network_35 }
+            ip_version: 6
+            cidr: 2035::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_46_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_46_IPv6
+            network_id: {get_resource: Network_46 }
+            ip_version: 6
+            cidr: 2046::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_56_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_56_IPv6
+            network_id: {get_resource: Network_56 }
+            ip_version: 6
+            cidr: 2056::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_58_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_58_IPv6
+            network_id: {get_resource: Network_58 }
+            ip_version: 6
+            cidr: 2058::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_67_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_67_IPv6
+            network_id: {get_resource: Network_67 }
+            ip_version: 6
+            cidr: 2067::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_68_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_68_IPv6
+            network_id: {get_resource: Network_68 }
+            ip_version: 6
+            cidr: 2068::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_78_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_78_IPv6
+            network_id: {get_resource: Network_78 }
+            ip_version: 6
+            cidr: 2078::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_B_IPv6:
+        type: OS::Neutron::Subnet
+        description: IPv6
+        properties:
+            name: Subnet_B_IPv6
+            network_id: {get_resource: Network_B }
+            ip_version: 6
+            cidr: B::/64
+            gateway_ip: ""
+            enable_dhcp: false
+    Subnet_B_IPv4:
+        type: OS::Neutron::Subnet
+        description: IPv4
+        properties:
+            name: Subnet_B_IPv4
+            network_id: {get_resource: Network_B }
+            ip_version: 4
+            cidr: 192.168.8.0/24
+            gateway_ip: ""
+            enable_dhcp: false
+            
+    
+    #############################Ports##########################
+    #Host_A
+    Host_A-A:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_A }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: A::A
+    Host_A-1:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_A }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - ip_address: 192.168.1.10
+    Host_A-B:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_A }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: A::B
+    Host_A-Admin:
+        type: OS::Neutron::Port
+        description: Host_A in admin
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    
+    #Seattle
+    Seattle-A:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_A }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: A::1
+    Seattle-1:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_A }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - ip_address: 192.168.1.1
+    Seattle-12:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_12 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2012::1
+    Seattle-13:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_13 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2013::1
+    Seattle-15:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_15 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2015::1    
+    Seattle-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    
+    #Edmonton
+    Edmonton-12:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_12 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2012::2
+    Edmonton-24:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_24 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2024::2
+    Edmonton-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    
+    #San Jose
+    San_Jose-13:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_13 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2013::3
+    San_Jose-35:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_35 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2035::3
+    San_Jose-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+              
+    #Toronto
+    Toronto-24:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_24 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2024::4
+    Toronto-46:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_46 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2046::4
+    Toronto-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+
+    #New_York
+    New_York-15:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_15 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2015::5
+    New_York-35:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_35 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2035::5
+    New_York-56:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_56 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2056::5
+    New_York-58:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_58 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2058::5
+    New_York-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+
+    #St_John
+    St_John-46:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_46 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2046::6
+    St_John-56:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_56 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2056::6
+    St_John-67:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_67 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2067::6
+    St_John-68:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_68 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2068::6
+    St_John-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    #London
+    London-67:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_67 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2067::7
+    London-78:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_78 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2078::7
+    London-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    #Madrid
+    Madrid-B:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_B }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: B::1
+    Madrid-8:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_B }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - ip_address: 192.168.8.1
+    Madrid-58:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_58 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2058::8
+    Madrid-68:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_68 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2068::8
+    Madrid-78:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_78 }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: 2078::8  
+    Madrid-Admin:
+        type: OS::Neutron::Port
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    #Host_B
+    Host_B-A:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_B }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: B::A
+    Host_B-1:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_B }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - ip_address: 192.168.8.10
+    Host_B-B:
+        type: OS::Neutron::Port
+        properties:
+            network_id: {get_resource: Network_B }
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0::/0
+            fixed_ips:
+                - ip_address: B::B
+    Host_B-Admin:
+        type: OS::Neutron::Port
+        description: Host_B in admin
+        properties:
+            network_id: cengn_training_admin
+            security_groups: [default]
+            allowed_address_pairs:
+                - ip_address: 0.0.0.0/0
+            fixed_ips:
+                - subnet_id: training_admin_sub
+    
+    
+    #############################Servers##########################
+    Host_A:
+        type: OS::Nova::Server
+        properties:
+            name: Host_A
+            flavor: m1.small
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Host_A-A }
+                - port: { get_resource: Host_A-1 }
+                - port: { get_resource: Host_A-B }
+                - port: { get_resource: Host_A-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 20
+                }]
+    Seattle:
+        type: OS::Nova::Server
+        properties:
+            name: Seattle
+            flavor: m1.medium
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Seattle-A }
+                - port: { get_resource: Seattle-1 }
+                - port: { get_resource: Seattle-12 }
+                - port: { get_resource: Seattle-13}
+                - port: { get_resource: Seattle-15 }
+                - port: { get_resource: Seattle-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 40
+                }]
+    Edmonton:
+        type: OS::Nova::Server
+        properties:
+            name: Edmonton
+            flavor: m1.small
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Edmonton-12 }
+                - port: { get_resource: Edmonton-24 }
+                - port: { get_resource: Edmonton-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 20
+                }]
+    San_Jose:
+        type: OS::Nova::Server
+        properties:
+            name: San_Jose
+            flavor: m1.small
+            key_name: Kyler
+            networks:
+                - port: { get_resource: San_Jose-13 }
+                - port: { get_resource: San_Jose-35 }
+                - port: { get_resource: San_Jose-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 20
+                }]
+    Toronto:
+        type: OS::Nova::Server
+        properties:
+            name: Toronto
+            flavor: m1.small
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Toronto-24 }
+                - port: { get_resource: Toronto-46 }
+                - port: { get_resource: Toronto-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 20
+                }]
+    New_York:
+        type: OS::Nova::Server
+        properties:
+            name: New_York
+            flavor: m1.medium
+            key_name: Kyler
+            networks:
+                - port: { get_resource: New_York-15 }
+                - port: { get_resource: New_York-35 }
+                - port: { get_resource: New_York-56}
+                - port: { get_resource: New_York-58 }
+                - port: { get_resource: New_York-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 40
+                }]
+    St_John:
+        type: OS::Nova::Server
+        properties:
+            name: St_John
+            flavor: m1.medium
+            key_name: Kyler
+            networks:
+                - port: { get_resource: St_John-46 }
+                - port: { get_resource: St_John-56 }
+                - port: { get_resource: St_John-67}
+                - port: { get_resource: St_John-68 }
+                - port: { get_resource: St_John-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 40
+                }]
+    London:
+        type: OS::Nova::Server
+        properties:
+            name: London
+            flavor: m1.medium
+            key_name: Kyler
+            networks:
+                - port: { get_resource: London-67 }
+                - port: { get_resource: London-78 }
+                - port: { get_resource: London-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 40
+                }]
+    Madrid:
+        type: OS::Nova::Server
+        properties:
+            name: Madrid
+            flavor: m1.medium
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Madrid-58 }
+                - port: { get_resource: Madrid-68 }
+                - port: { get_resource: Madrid-78 }
+                - port: { get_resource: Madrid-B }
+                - port: { get_resource: Madrid-8 }
+                - port: { get_resource: Madrid-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 40
+                }]
+    Host_B:
+        type: OS::Nova::Server
+        properties:
+            name: Host_B
+            flavor: m1.small
+            key_name: Kyler
+            networks:
+                - port: { get_resource: Host_B-A }
+                - port: { get_resource: Host_B-1 }
+                - port: { get_resource: Host_B-B }
+                - port: { get_resource: Host_B-Admin }
+            block_device_mapping_v2:
+                [{
+                delete_on_termination: True,
+                image: Ubuntu,
+                volume_size: 20
+                }]
+
+outputs:
+    Host_A_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [Host_A, networks] }
+    Seattle_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [Seattle, networks] }
+    Edmonton_netoworks:
+        description: The networks of the deployed server
+        value: { get_attr: [Seattle, networks] }
+    San_Jose_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [San_Jose, networks] }
+    Toronto_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [Toronto, networks] }
+    New_York_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [New_York, networks] }
+    St_John_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [St_John, networks] }
+    London_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [London, networks] }
+    Madrid_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [Madrid, networks] }
+    Host_B_networks:
+        description: The networks of the deployed server
+        value: { get_attr: [Host_B, networks] } 
